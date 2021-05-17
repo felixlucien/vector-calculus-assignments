@@ -1,0 +1,262 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, mathtools, amssymb}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[document]{ragged2e}
+\usepackage{tikz}
+\usepackage{undertilde}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\newcommand{\Lim}[1]{\raisebox{0.5ex}{\scalebox{0.8}{$\displaystyle \lim_{#1}\;$}}}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\begin{document}
+Vector Calculus Mast 20009 \hfill Felix McCuaig, 1159424 \\
+Assignment 1 \hfill Tutorial Wed 5:15PM  
+
+\section*{Question 1}
+Consider the function
+$$
+f(x,y)=
+\begin{cases} 
+      \frac{-2x^4y}{x^4+2y^2} & (x,y) \neq (0,0) \\
+      0 & (x,y)=(0,0) \\
+\end{cases}
+$$
+\textbf{(a)} Evaluate $\lim\limits_{(x,y) \rightarrow (0,0)}f(x,y)$ along the path $y=kx$, where $k \neq 0$.\\
+\medskip
+If we take the path $y=kx$, the limit becomes:
+
+\begin{align*}
+	=&\lim_{x \rightarrow 0}\frac{-2x^4kx}{x^4+2(kx)^2}\\
+	=&\lim_{x \rightarrow 0}\frac{-2kx^5}{x^4+2k^2x^2}
+\end{align*}
+Direct substitution of $x=0$ would yield an indeterminate form of $\frac{0}{0}$. Therefore, we should use L'hopital's rule, and keep applying it until a determinate form is found. 
+\begin{align*}
+	=&\lim_{x \rightarrow 0}\frac{-10kx^4}{4x^3+4k^2x}\\
+	=&\lim_{x \rightarrow 0}\frac{-40kx^3}{12x^2+4k^2}\\
+	=&\lim_{x \rightarrow 0}\frac{-120kx^2}{24x}\\
+	=&\lim_{x \rightarrow 0}-5kx\\
+	=&0
+\end{align*}
+\textbf{(b)} Evaluate $\lim\limits_{(x,y) \rightarrow (0,0)}f(x,y)$ if it exists or justify why the limit doesn't exist.\\
+\medskip
+We could use polar coordinates to evaluate the limit and let $x=r\cos\theta$, $y=r\sin\theta$:
+\begin{align*}
+	=&\lim_{(x,y) \rightarrow (0,0)}\frac{-2x^4y}{x^4+2y^2}\\
+	=&\lim_{r \rightarrow 0}\frac{-2(r\cos\theta)^4r\sin\theta}{(r\cos\theta)^4+2(r\sin \theta)^2}\\
+	=&\lim_{r \rightarrow 0}\frac{-2r^5\cos^4 \theta \sin \theta}{r^4\cos^4 \theta+2r^2\sin^2 \theta}\\
+	=&\lim_{r \rightarrow 0}\frac{-2r^3\cos^4 \theta \sin \theta}{r^2\cos^4 \theta+2\sin^2 \theta}\\
+	=&\lim_{r \rightarrow 0}\frac{-2r^3\cos^4 \theta \sin \theta}{r^2\cos^4 \theta+2\sin^2 \theta}\\
+	=&0
+\end{align*}
+Therefore the $\lim\limits_{(x,y) \rightarrow (0,0)}f(x,y)=0$.\\
+\medskip
+\textbf{(c)} Determine where $f$ is $C^1$. Justify your answer, referring to any theorems you use.\\
+\medskip
+\textbf{Theorem:}\\
+For a function $f$ to be $C^n$ its $n$th partial derivatives must exist and be continuous over the domain of $f$.\\
+\medskip
+Let $f_1=\frac{-2x^4y}{x^4+2y^2}$ and $f_2=0$.
+\begin{align*}
+	\frac{\partial f_1}{\partial x}=&\frac{(x^4+2y^2)(-8x^3y)+(2x^4y)(4x^3)}{(x^4+2y^2)^2}=\frac{-16x^3y^3}{(x^4+2y^2)^2}\\
+	\frac{\partial f_1}{\partial y}=&\frac{(x^4+2y^2)(-2x^4)+(2x^4y)(4y)}{(x^4+2y^2)^2}=\frac{2(2y^2-x^4)x^4}{(x^4+2y^2)^2}\\
+	\frac{\partial f_2}{\partial x}=&0\\
+	\frac{\partial f_1}{\partial y}=&0
+\end{align*}
+To check that our partial derivatives are continuous over the domain of $f$, we expect:
+\[
+	\lim_{(x,y) \rightarrow (0,0)}\frac{\partial f_1}{\partial x}=0 \hspace{20px} \lim_{(x,y) \rightarrow (0,0)}\frac{\partial f_1}{\partial y}=0
+\]
+\medskip
+For our case $\frac{\partial f_1}{\partial x}$:
+\begin{align}
+	\lim_{(x,y) \rightarrow (0,0)}\frac{\partial f_1}{\partial x}=\lim_{(x,y) \rightarrow (0,0)}\frac{-16x^3y^3}{(x^4+2y^2)^2}
+\end{align}
+Let $x=r\cos \theta$ and $y=r\sin \theta$.
+\begin{align*}
+	=&\lim_{r \rightarrow 0}\frac{-16(r\cos \theta)^3(r\sin \theta)^3}{((r\cos \theta)^4+2(r\sin \theta)^2)^2}\\
+	=&\lim_{r \rightarrow 0}\frac{-16r^6\cos^3 \theta \sin^3 \theta}{((r^4\cos^4 \theta)+2r^2\sin^2 \theta)^2} \\
+	=&\lim_{r \rightarrow 0}\frac{-16r^6\cos^3 \theta \sin^3 \theta}{(r^4\cos^4 \theta)^2+2(r^4\cos^4 \theta)(2r^2\sin^2 \theta)+(2r^2\sin^2 \theta)^2} \\
+	=&\lim_{r \rightarrow 0}\frac{-16r^6\cos^3 \theta \sin^3 \theta}{r^8\cos^8 \theta+4r^6\cos^4 \theta\sin^2 \theta+4r^4\sin^4 \theta} \\
+	=&\lim_{r \rightarrow 0}\frac{-16r^2\cos^3 \theta \sin^3 \theta}{r^4\cos^8 \theta+4r^2\cos^4 \theta\sin^2 \theta+4\sin^4 \theta} \\
+	=&0
+\end{align*}
+\medskip
+For our case $\frac{\partial f_1}{\partial y}$:
+
+\begin{align}
+\lim_{(x,y) \rightarrow (0,0)}\frac{\partial f_1}{\partial y}=\lim_{(x,y) \rightarrow (0,0)}\frac{2(2y^2-x^4)x^4}{(x^4+2y^2)^2}
+\end{align}
+Take the limit along the path $x=0$.
+\begin{align*}
+=&\lim_{(x,y) \rightarrow (0,0)}\frac{2(2y^2-x^4)x^4}{(x^4+2y^2)^2}\\
+=&\lim_{y \rightarrow 0}\frac{0}{4y^4}\\
+=&0
+\end{align*}
+Take the limit along the path $y=0$.
+\begin{align*}
+=&\lim_{(x,y) \rightarrow (0,0)}\frac{2(2y^2-x^4)x^4}{(x^4+2y^2)^2}\\
+=&\lim_{x \rightarrow 0}\frac{-2x^8}{x^8}\\
+=&-2
+\end{align*}
+Since $0 \neq -2$, the limit doesn't exist.\\
+\medskip
+Since not all partial derivatives of $f(x,y)$ exist, the function is not $C^1$.
+\section*{Question 2}
+Consider the function
+\[
+	q(x,y)=xe^{y+2x}
+\]
+\textbf{(a)} Determine the second order Taylor polynomial for $q$ about the point $(1,1)$.\\
+\medskip
+We know the $2$nd order Taylor approximation of a function of two variables $(x,y)$ near the point $(a,b)$ follows the formula:
+\[
+f(x,y)\approx f(a,b)+f_x(a,b)(x-a)+f_y(a,b)(y-b)+\frac{f_{xx}(a,b)}{2}(x-a)^2+f_{xy}(a,b)(x-a)(y-b)+\frac{f_{yy}(a,b)}{2}(y-b)^2
+\]
+To create a Taylor polynomial for $q$ around $(1,1)$, we should find the partial derivatives of $q$.
+
+\begin{align*}
+	q_x=&2xe^{y+2x}+e^{y+2x}=(2x+1)e^{y+2x} \\
+	q_y=&xe^{y+2x} \\
+	q_{xy}=&xe^{y+2x} \\
+	q_{xx}=&2e^{y+2x}+2e^{y+2x}(2x+1)=2(2x+2)e^{y+2x} \\
+	q_{yy}=&xe^{y+2x} \\
+\end{align*}
+Therefore, the Taylor formula for $q(x,y)$ around the point $(1,1)$ is:\\
+\begin{align*}
+q(x,y)\approx & q(1,1)+f_x(1,1)(x-1)+f_y(1,1)(y-1)+\frac{f_{xx}}{2}(1,1)(x-1)^2\\+&\frac{f_{yy}}{2}(1,1)(y-1)^2+f_{xy}(1,1)(x-1)(y-1)\\
+q(x,y)\approx & q(1,1)+(3)e^{3}(x-1)+(1)e^{3}(y-1)+\frac{2(4)e^{3}}{2}(x-1)^2+\frac{1e^{3}}{2}(y-1)^2+(1e^{3})(x-1)(y-1)\\
+q(x,y)\approx & e^3+3e^{3}(x-1)+e^{3}(y-1)+4e^{3}(x-1)^2+\frac{e^{3}}{2}(y-1)^2+(e^{3})(x-1)(y-1)\\
+\end{align*}
+\textbf{(b)} Using your Taylor polynomial in part (a), approximate $q(1.1, 1.1)$.\\
+\medskip
+To find $q(1.1, 1.1)$, we should let $x=y=1.1$.
+\begin{align*}
+q(1.1,1.1)\approx & e^3+3e^{3}(1.1-1)+e^{3}(1.1-1)+4e^{3}(1.1-1)^2+\frac{e^{3}}{2}(1.1-1)^2+(e^{3})(1.1-1)(1.1-1)\\
+q(1.1,1.1)\approx & e^3+3e^{3}(0.1)+e^{3}(0.1)+4e^{3}(0.01)+\frac{e^{3}}{2}(0.01)+(e^{3})(0.01)\\
+q(1.1,1.1)\approx & e^3+4e^{3}(0.1)+\frac{7}{2}(e^{3})(0.01)\\
+q(1.1,1.1)\approx & 28.823\\
+\end{align*}
+\textbf{(c)} Using Taylor's remainder formula, determine an upper bound for the error in your approximation of $q(1.1, 1.1)$.\\
+\medskip
+Remember that the formula to calculate the Taylor remainder term where $f=q$ is:
+\[
+	R_n(\vect{x})=\sum_{|\alpha|=n+1}\frac{(\vect{x}-\vect{a})^\alpha}{\alpha!}(\partial^{\alpha}f)(\vect{a}+\xi(\vect{x}-\vect{a}))
+\]
+For some $\xi \in (0,1)$.\\
+\begin{align*}
+	R_2(\vect{x})=&\sum_{|\alpha|=3}\frac{(\vect{x}-\vect{a})^\alpha}{\alpha!}(\partial^{\alpha}f)(\vect{a}+\xi(\vect{x}-\vect{a})) \\
+	R_2(x,y)=&\frac{1}{3!}f_{xxx}(\vect{p})x^3+\frac{1}{2!}f_{xxy}(\vect{p})x^2y+\frac{1}{2!}f_{xyy}(\vect{p})xy^2+\frac{1}{3!}f_{yyy}(\vect{p})y^3 \\
+\end{align*}
+Where $\vect{p}=\vect{a}+\xi(\vect{x}-\vect{a})$.\\
+\smallskip
+If we let $(x,y)=(1.1, 1.1)$ and $(a, b)=(1,1)$, then our expression becomes:\\
+\begin{align*}
+R_2(1.1,1.1)=&\frac{1}{3!}f_{xxx}(1+0.1\xi,1+0.1\xi)(1.1)^3+\frac{1}{2!}f_{xxy}(1+0.1\xi,1+0.1\xi)(1.1)^2(1.1)\\+&\frac{1}{2!}f_{xyy}(1+0.1\xi,1+0.1\xi)(1.1)(1.1)^2+\frac{1}{3!}f_{yyy}(1+0.1\xi,1+0.1\xi)(1.1)^3 \\
+\therefore R_2(1.1,1.1)=&\frac{1}{3!}f_{xxx}(1+0.1\xi,1+0.1\xi)(1.1)^3+\frac{1}{2!}f_{xxy}(1+0.1\xi,1+0.1\xi)(1.1)^3\\+&\frac{1}{2!}f_{xyy}(1+0.1\xi,1+0.1\xi)(1.1)^3+\frac{1}{3!}f_{yyy}(1+0.1\xi,1+0.1\xi)(1.1)^3 \\
+\end{align*}
+And:\\
+\begin{align*}
+	q_{xxx}=&4(2x+3)e^{2x+y} \\
+	q_{xxy}=&4(x+1)e^{2x+y} \\
+	q_{xyy}=&(2x+1)e^{y+2x} \\
+	q_{yyy}=&xe^{y+2x} \\
+\end{align*}
+So:
+\begin{align*}
+R_2(1.1,1.1)=&\frac{1}{6}f_{xxx}(1+0.1\xi,1+0.1\xi)(1.1)^3+\frac{1}{2}f_{xxy}(1+0.1\xi,1+0.1\xi)(1.1)^3\\+&\frac{1}{2}f_{xyy}(1+0.1\xi,1+0.1\xi)(1.1)^3+\frac{1}{6}f_{yyy}(1+0.1\xi,1+0.1\xi)(1.1)^3 \\
+R_2(1.1,1.1)=&\frac{1}{6}\cdot \frac{4(\xi+25)e^{\frac{3\xi}{10}+3}}{5}(1.1)^3+\frac{1}{2}\cdot \frac{2(\xi+20)e^{\frac{3\xi}{10}+3}}{5}(1.1)^3\\+&\frac{1}{2}\cdot \frac{(\xi+15)e^{\frac{3\xi}{10}+3}}{5}(1.1)^3+\frac{1}{6}\cdot \frac{(\xi+10)e^{\frac{3\xi}{10}+3}}{10}(1.1)^3 \\
+R_2(1.1,1.1)=&\frac{11979(\xi+20)e^{\frac{3\xi}{10}+3}}{20000}
+\end{align*}
+Taking $\xi=0.1$
+\[
+	R_2(1.1, 1.1)=249.172
+\]
+\section*{Question 3}
+Let $f:\mathbb{R}^2 \rightarrow \mathbb{R}^2$ be the function
+\[
+	f(x,y)=(x\cos y + y \cos x, 2+y-2e^{-x})
+\]
+\textbf{(a)} Find $\mathbf{D}f$, the matrix of partial derivatives of $f$.\\
+\medskip
+\[
+	\mathbf{D}f=
+\begin{bmatrix}
+    \frac{\partial f_1}{\partial x} & \frac{\partial f_1}{\partial y} \\[10pt]
+    \frac{\partial f_2}{\partial x} & \frac{\partial f_2}{\partial y} \\
+\end{bmatrix}
+\]
+
+\[
+	\mathbf{D}f=
+\begin{bmatrix}
+    \cos y - y \sin x & \cos x - x \sin y \\[0.3em]
+    2e^{-x} & 1 \\
+\end{bmatrix}
+\]\\
+\medskip
+\textbf{(b)} Let $g(x,y)$ be a differentiable function such that $g(0,0)=(0,0)$ and $f(g(x,y))=(x,y)$ for all $(x, y)$ sufficiently close to $(0,0)$. Find $\textbf{D}g(0,0)$.\\
+\medskip
+Since $f(g(x,y))=(x,y)$ sufficiently close to $(0,0)$, we know that $g=f^{-1}$, close to $(0,0)$. Therefore:
+\[
+	\mathbf{D}(f\circ g)=
+\begin{bmatrix}
+    1 & 0 \\[0.3em]
+    0 & 1 \\
+\end{bmatrix}
+\]
+And since:
+\[
+	\mathbf{D}(f\circ g)=\mathbf{D}f\mathbf{D}g
+\]
+Then:
+\[
+\begin{bmatrix}
+    1 & 0 \\[0.3em]
+    0 & 1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    \cos y - y \sin x & \cos x - x \sin y \\[0.3em]
+    2e^{-x} & 1 \\
+\end{bmatrix}
+\mathbf{D}g
+\]
+So that means $\mathbf{D}g$ is just the inverse Jacobian matrix of $\mathbf{D}f$:
+\[
+\mathbf{D}g
+=
+\frac{1}{(\cos y - y \sin x)-(2e^{-x})(\cos x - x \sin y)}
+\begin{bmatrix} 
+    1 & -(\cos x - x \sin y) \\[0.3em]
+    -2e^{-x} & \cos y - y \sin x \\
+\end{bmatrix}
+\]
+When $(x,y)=(0,0)$
+\[
+\therefore \mathbf{D}g(\vect{0})
+=
+\frac{1}{(\cos 0 - 0 \sin 0)-(2e^{-0})(\cos 0 - 0 \sin 0)}
+\begin{bmatrix} 
+    1 & -(\cos 0 - 0 \sin 0) \\[0.3em]
+    -2e^{-0} & \cos 0 - 0 \sin 0 \\
+\end{bmatrix}
+\]
+\[
+\therefore \mathbf{D}g(\vect{0})
+=
+\begin{bmatrix} 
+   -1 & 1 \\[0.3em]
+    2 & -1 \\
+\end{bmatrix}
+\]
+\end{document}

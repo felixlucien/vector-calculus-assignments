@@ -1,0 +1,261 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, mathtools, amssymb}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[document]{ragged2e}
+\usepackage{tikz}
+\usepackage{undertilde}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\newcommand{\Lim}[1]{\raisebox{0.5ex}{\scalebox{0.8}{$\displaystyle \lim_{#1}\;$}}}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\begin{document}
+Vector Calculus Mast 20009 \hfill Felix McCuaig, 1159424 \\
+Assignment 3 \hfill Tutorial Wed 5:15PM  
+
+\section*{Question 1}
+Let the path $C$ traverse half of the ellipse $4x^2+9y^2=36$ from $(3,0)$ to $(-3,0)$ in a clockwise direction. \\
+\medskip
+\textbf{(a)} Write down a parametrisation for $C$ in terms of an increasing parameter $t$. \\
+\smallskip
+Since we are going in the clockwise direction, we can parametrise $C$ by using:
+$$
+x=a\cos ( -t) \text{ and } y=b\sin (-t)
+$$
+\begin{align*}
+	\frac{x^2}{9}+\frac{y^2}{4}=1 \\
+	\frac{(a\cos (-t))^2}{9}+\frac{(b\sin (-t))^2}{4}=1 \\
+	\frac{a^2\cos^2 (t)}{9}+\frac{b^2\sin^2 (t)}{4}=1 \\
+\end{align*}
+Therefore, $a = 3$ and $b = 2$, then: $x = 3 \cos t, y = -2 \sin t$ so:
+$$
+	x = 3 \cos t, y = -2 \sin t \hspace{20px} t \in [ 0, \pi ]
+$$
+$$
+	\vect{c}(t) = (3 \cos t, -2 \sin t) \hspace{20px} t \in [ 0, \pi ]
+$$
+\textbf{(b)} Using part \textbf{(a)}, determine the work done by the force: \\
+$$
+	\vect{F}(x, y) = 2y\vect{i}+ 5x\vect{j}
+$$
+to move a particle along $C$. \\
+\medskip
+The work can be calculated as:
+$$
+\text{Work} = \int_{C}\vect{F}  \cdot \vect{ds}
+$$
+
+\begin{align*}
+	&=\int_{C}\vect{F}\cdot \frac{\vect{ds}}{dt}dt \\
+	&=\int_{0}^{\pi} \vect{F}(\vect{c}(t))\cdot \vect{c}'(t) \ dt \\
+	&=\int_{0}^{\pi} \vect{F}(3 \cos t, -2 \sin t)\cdot (-3 \sin t, -2 \cos t) \ dt \\
+	&=\int_{0}^{\pi} (-4 \sin t, 15 \cos t)\cdot (-3 \sin t, -2 \cos t) \ dt \\
+	&=\int_{0}^{\pi} 12 \sin^2 t - 30 \cos^2 t \ dt \\
+	&=\int_{0}^{\pi} 12 \sin^2 t + 12 \cos^2 t - 42 \cos^2 t \ dt \\
+	&=\int_{0}^{\pi} 12 - 42 \cos^2 t \ dt \\
+	&=-\int_{0}^{\pi} 42 \cos^2 t - 12 \ dt \\
+	&=-\int_{0}^{\pi} 42 \cos^2 t - 21 + 9 \ dt \\
+	&=-\int_{0}^{\pi} 21\cos(2t) + 9 \ dt \\
+	&=-\left[ \frac{21 \sin 2t }{2} + 9t \right]^{\pi}_{0} \\
+	&=-\left[ \frac{21 \sin 2\pi }{2} + 9\pi - \left( \frac{21 \sin 0 }{2} + 9\times0 \right) \right]^{\pi}_{0} \\
+	&=-9\pi \text{ Joules} \\
+\end{align*}
+
+\section*{Question 2}
+Let $a$ and $h$ be positive real numbers. Let $\Sigma$ be the surface in $\mathbb{R}^3$ given by
+$$
+	4ax=y^2+z^2
+$$
+\textbf{(a)} Find the volume of the region enclosed between $\Sigma$ and the plane $x=h$.\\
+\medskip
+The above volume can be calculated by summing the area of circles created by the paraboloid from $x=0$ to $x=h$ therefore, taking the following (where $y=2a\sqrt{x}$):
+$$
+	\int_{0}^{h}\pi y^2 \ dx
+$$
+
+$$
+	=\int_{0}^{h}\pi (2a\sqrt{x})^2 \ dx
+$$
+
+$$
+	=\int_{0}^{h}4\pi a^2x \ dx
+$$
+
+$$
+	=4\pi a^2\int_{0}^{h}x \ dx
+$$
+
+$$
+	=4\pi a^2h^2
+$$
+\textbf{(b)} Show that the surface area of the part of $\Sigma$ with $x\leq h$ is
+$$
+	\frac{8\pi\sqrt{a}}{3}\left( (a+h)^\frac{3}{2} -a^\frac{3}{2} \right)\text{.}
+$$
+\smallskip
+We know the surface area of a parametrised surface:
+$$
+ \iint\limits_{S}dS=\iint\limits_{D}||T_u\times T_v|| \ du dv
+$$
+Where $T_u$ and $T_v$ are the tangent vectors to $u$ and $v$.
+\smallskip
+We can parametrise our surface $4ax=y^2+z^2$ using:
+$$
+	x=\frac{u^2+v^2}{4a}, \ y=u, \ z=v
+$$
+Now, we can compute $T_u$ and $T_v$:
+$$
+T_u=\left( \frac{\partial x}{\partial u},  \frac{\partial y}{\partial u},  \frac{\partial z}{\partial u} \right)
+=\left( \frac{u}{2a},  1,  0 \right)
+$$
+
+$$
+T_v=\left( \frac{\partial x}{\partial v},  \frac{\partial y}{\partial v},  \frac{\partial z}{\partial v} \right)
+=\left( \frac{v}{2a},  0,  1 \right)
+$$
+Now to compute $||T_u \times T_v||$:
+$$
+\begin{vmatrix}
+	\vect{i} & \vect{j} & \vect{k} \\
+	\frac{u}{2a} & 1 & 0 \\
+	\frac{v}{2a} & 0 & 1 \\
+\end{vmatrix}
+=
+\left(
+1,
+\frac{-u}{2a},
+\frac{-v}{2a}
+\right)
+$$
+The norm is:
+$$
+\sqrt{1+\frac{u^2+v^2}{4a^2}}
+$$
+Now, our integral becomes:
+$$
+	\iint\limits_{D}\sqrt{1+\frac{u^2+v^2}{4a^2}} \ du dv
+$$
+If we changed to polar coordinates, it would make our life easier since we could integrate from $r\in [0, h]$ and $\theta \in [0, 2\pi]$.\\
+Let's let:
+$$
+u=r\cos \theta, \ v=r\sin \theta
+$$
+To make the change of variables:
+$$
+du dv = \left| \frac{\partial (u, v)}{\partial (r, \theta) } \right|dr d\theta
+$$
+To compute the Jacobian determinant:
+$$
+\begin{vmatrix}
+	\frac{\partial u}{\partial r} & \frac{\partial u}{\partial \theta} \\
+	\frac{\partial v}{\partial r} & \frac{\partial v}{\partial \theta} \\
+\end{vmatrix}
+=
+\begin{vmatrix}
+	\cos \theta & -r \sin \theta \\
+	\sin \theta & r \cos \theta \\
+\end{vmatrix}
+=r
+$$
+$$
+	\int_{0}^{2\pi}\int_{0}^{h}\sqrt{1+\frac{r^2}{4a^2}} \ r \ dr d\theta
+$$
+$$
+	\int_{0}^{2\pi}\int_{0}^{h}\left(1+\frac{r^2}{4a^2}\right)^{\frac{1}{2}} r \ dr d\theta
+$$
+If we let $\beta =1+\frac{r^2}{4a^2}$:
+$$
+\frac{d \beta}{d r} = \frac{r}{2a^2} 
+\Rightarrow
+d \beta=dr \frac{r}{2a^2}
+$$
+$$
+	2a^2\int_{0}^{2\pi}\int_{0}^{1+\frac{h^2}{4a^2}}\left(\beta\right)^{\frac{1}{2}} d\beta d\theta
+$$
+
+$$
+	2a^2\int_{0}^{2\pi}\left[\frac{2\beta^{\frac{3}{2}}}{3} \right]^{1+\frac{h^2}{4a^2}}_{0} d\theta
+$$
+
+$$
+	2a^2\int_{0}^{2\pi}\frac{2}{3} \left( 1+\frac{h^2}{4a^2} \right)^{\frac{3}{2}} d\theta
+$$
+
+$$
+	2a^2 \times 2\pi \times \frac{2}{3} \left( 1+\frac{h^2}{4a^2} \right)^{\frac{3}{2}}
+$$
+
+$$
+	8\pi \times \frac{a^2}{3} \left( 1 +\frac{h^2}{4a^2} \right)^{\frac{3}{2}}
+$$
+
+$$
+	 \frac{8\pi\sqrt{a}}{3} \left(  a\left( 1+\frac{h^2}{4a^2} \right) \right)^{\frac{3}{2}}
+$$
+
+$$
+	 \frac{8\pi\sqrt{a}}{3} \left(  a + \frac{h^2}{4a} \right)^{\frac{3}{2}}
+$$
+\section*{Question 3}
+Let $n$ be a positive integer. Let $f:[0,1]\rightarrow\mathbb{R}$ be a continuous function. Show that
+$$
+\int_{0}^{1}\int_{0}^{1}f(xy)x^{n+1}y(1-y)^{n-1}dx \ dy = \frac{1}{n}\int_{0}^{1}t(1-t)^{n}f(t)\ dt
+$$
+[Hint, perform the change of variables $s=x(1-y),t=xy$].
+\begin{align*}
+	&=\int_{0}^{1}\int_{0}^{1}f(xy)x^{n+1}y(1-y)^{n-1} \ dxdy \\
+	&=\int_{0}^{1}\int_{0}^{1}f(t)x^2y\times x^{n-1}(1-y)^{n-1} \ dxdy \\
+	&=\int_{0}^{1}\int_{0}^{1}f(t)x^2y\times s^{n-1} \ dxdy \\
+\end{align*}
+
+$$
+	dsdt=\left| \frac{\partial(x,y)}{\partial(s,t)} \right|dxdy
+$$
+
+$$
+dsdt=
+\begin{vmatrix}
+	s_x & s_y \\
+	t_s & t_y \\
+\end{vmatrix}
+dxdy
+$$
+
+$$
+dsdt=
+\begin{vmatrix}
+	1-y & -x \\
+	y & x \\
+\end{vmatrix}
+dxdy
+$$
+
+$$
+dsdt=
+(x(1-y)+xy)
+dxdy
+$$
+
+$$
+dsdt=
+(x)
+dxdy
+$$
+
+\begin{align*}
+	=\int_{0}^{1}\int_{0}^{1-t}f(t)t \times s^{n-1} \ dsdt \\
+	=\int_{0}^{1}\frac{1}{n}t(1-t)^nf(t) \ dt \\
+\end{align*}
+
+\end{document}

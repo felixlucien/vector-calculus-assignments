@@ -1,0 +1,69 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, mathtools, amssymb}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[document]{ragged2e}
+\usepackage{tikz}
+\usepackage{undertilde}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\usepackage{graphicx} % \scalebox
+\usepackage{environ}
+\NewEnviron{largeMath}{%
+\begin{equation}
+\scalebox{1.5}{$\BODY$}
+\end{equation}
+}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+Vector Calculus \hfill Felix McCuaig \\
+Assignment 4
+
+\section*{Question 1}
+Let $S$ be the surface given by
+$$
+x^2+2y^4+3z^6=1 \text{ with } z \geqslant 0.
+$$
+Let $\Gamma$ be the curve
+$$
+\gamma (t)= \left( \cos(\pi t) , \sqrt{t+1}, \frac{2t}{t^2+1} \right), \hspace{20px} \text{ for } \hspace{20px}  0 \leqslant t \leqslant 1
+$$
+and let $\vect{F}$ be the vector field 
+$$
+\vect{F}(x,y,z)=(a-4z^2x)\vect{i}+2by\vect{j}+cx^2z\vect{k}
+$$
+where $a,b,c \in \mathbb{R}$\\
+\medskip
+\textbf{(a)} Compute
+$$
+\iint_{S}(\nabla \times \vect{F})\cdot d \vect{S}.
+$$
+Let's first find $\nabla \times \vect{F}$:
+\smallskip
+$$
+\nabla \times \vect{F} = 
+\begin{vmatrix}
+	\vect{i}  & \vect{j} & \vect{k} \\
+	\frac{\partial}{\partial x}  & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\
+	a-4z^2x  & 2by & cx^2z \\
+\end{vmatrix}
+$$
+
+$$
+=\left( \frac{\partial}{\partial y}(cx^2z)-\frac{\partial}{\partial z}(2by) \right)\vect{i}-
+\left( \frac{\partial}{\partial x}(cx^2z)-\frac{\partial}{\partial z}(a-4z^2x) \right)\vect{j}+
+\left( \frac{\partial}{\partial x}(2by)-\frac{\partial}{\partial z}(a-4z^2x) \right)\vect{k}
+$$
+
+$$
+=(0,  2xcz+8zx,  8zx)
+$$
+\end{document}
